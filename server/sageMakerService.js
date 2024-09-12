@@ -42,7 +42,6 @@ class SageMakerService {
 
       return {
         top_predicted_labels: topKProbabilities,
-        predicted_label: result.predicted_label,
         accepted: (result.predicted_label !== 'unknown_type'),
       };
     } catch (error) {
@@ -54,10 +53,10 @@ class SageMakerService {
   get_sorted_probabilities(labels, probabilities) {
     const labelProbabilities = {};
     for (let i = 0; i < labels.length; i++) {
-      labelProbabilities[labels[i]] = probabilities[i]*100;
+      labelProbabilities[labels[i]] = (probabilities[i] * 100).toFixed(2) + '%';
     }
     return Object.fromEntries(
-        Object.entries(labelProbabilities).sort(([, a], [, b]) => b - a)
+        Object.entries(labelProbabilities).sort(([, a], [, b]) => parseFloat(b) - parseFloat(a))
     );
   }
 
