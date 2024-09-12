@@ -42,7 +42,7 @@ const Dropzone = ({ className }) => {
 
             try {
               const result = await sendImageToBackend(base64String);
-              if (result.predicted_label === 'unknown_type') {
+              if (!result.accepted) {
                 setRejected(prevRejected => [
                   ...prevRejected,
                   Object.assign(file, { preview: URL.createObjectURL(file) })
