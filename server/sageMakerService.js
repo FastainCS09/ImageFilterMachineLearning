@@ -37,12 +37,34 @@ class SageMakerService {
       // Call SageMaker endpoint
       const response = await this.sagemakerRuntime.invokeEndpoint(params).promise();
       const result = JSON.parse(Buffer.from(response.Body).toString('utf-8'));
-      console.log(result);
-      return result;
+
+      const topKProbabilities = this.getTopKProbabilities(result.labels, result.probabilities, 5);
+
+      return {
+        top_predicted_labels: topKProbabilities,
+        predicted_label: result.predicted_label,
+        accepted: (result.predicted_label === 'unknown_type') ? false : true,
+      };
     } catch (error) {
       console.error('Error invoking SageMaker endpoint:', error);
       throw new Error('Error invoking SageMaker endpoint');
     }
+  }
+
+  get_sorted_probabilities(labels, probabilities) {
+    const labelProbabilities = {};
+    for (let i = 0; i < labels.length; i++) {
+      labelProbabilities[labels[i]] = probabilities[i]*100;
+    }
+    return Object.fromEntries(
+        Object.entries(labelProbabilities).sort(([, a], [, b]) => b - a)
+    );
+  }
+
+  getTopKProbabilities(labels, probabilities, k) {
+    const sortedLabelProbabilities = this.get_sorted_probabilities(labels, probabilities);
+    const topK = Object.entries(sortedLabelProbabilities).slice(0, k);
+    return Object.fromEntries(topK);
   }
 }
 
