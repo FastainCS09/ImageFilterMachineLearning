@@ -103,12 +103,12 @@ const Dropzone = ({ className }) => {
   }
 
   const renderJsonData = (jsonData) => {
-    console.log(jsonData);
+    console.log(`${JSON.stringify(jsonData)} JSON DATA`);
     return (
         <ul style={{  textAlign: 'left', paddingLeft: '2px', listStyleType: 'decimal',   listStylePosition: 'inside'}}>
           {Object.entries(jsonData).map(([key, value]) => (
               <li key={key} style={{fontSize: '16px'}}>
-                {`${key}: ${value.toFixed(2)}`} <strong>%</strong>
+                {`${key}: ${value}`}  {/* Directly use the string value */}
               </li>
           ))}
         </ul>
