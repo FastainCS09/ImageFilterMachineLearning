@@ -105,13 +105,19 @@ const Dropzone = ({ className }) => {
   const renderJsonData = (jsonData) => {
     console.log(`${JSON.stringify(jsonData)} JSON DATA`);
     return (
-        <ul style={{  textAlign: 'left', paddingLeft: '5px', listStylePosition: 'inside', listStyleType: 'disc'}}>
-          {Object.entries(jsonData).map(([key, value]) => (
-              <li key={key} style={{fontSize: '13px'}}>
-                {`${key}: ${value}`}  {/* Directly use the string value */}
-              </li>
-          ))}
-        </ul>
+      <ul style={{ textAlign: 'left', paddingLeft: '5px', listStylePosition: 'inside', listStyleType: 'disc' }}>
+        {Object.entries(jsonData).map(([key, value], index) => (
+          <li
+            key={key}
+            style={{
+              fontSize: '13px',
+              fontWeight: index === 0 ? 'bold' : 'normal',
+            }}
+          >
+            {`${key}: ${value}%`}  {/* Directly use the string value */}
+          </li>
+        ))}
+      </ul>
     );
   };
 
@@ -135,7 +141,8 @@ const Dropzone = ({ className }) => {
 
         <section className='mt-10'>
           <div className='flex gap-4'>
-            <h2 className='title text-3xl font-semibold'>Preview</h2>
+            <h2 className='title text-3xl font-semibold'
+                style={{backgroundColor: 'rgba(0,255,208,255)', color: 'black', display: 'inline'}}>Preview</h2>
             <button
                 type='button'
                 onClick={removeAll}

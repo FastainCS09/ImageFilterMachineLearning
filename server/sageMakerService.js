@@ -53,11 +53,21 @@ class SageMakerService {
   get_sorted_probabilities(labels, probabilities) {
     const labelProbabilities = {};
     for (let i = 0; i < labels.length; i++) {
-      labelProbabilities[labels[i]] = (probabilities[i] * 100).toFixed(2) + '%';
+      labelProbabilities[this.getLabel(labels, i)] = (probabilities[i] * 100).toFixed(2) ;
     }
     return Object.fromEntries(
         Object.entries(labelProbabilities).sort(([, a], [, b]) => parseFloat(b) - parseFloat(a))
     );
+  }
+
+  getLabel(labels, i) {
+    // Label mapping
+    const labelMapping = {
+      'unknown_type': 'unknown',
+      'floor_plan:': 'floor plan',
+      'property_facade': 'facade',
+    };
+    return labelMapping[labels[i]] || labels[i];
   }
 
   getTopKProbabilities(labels, probabilities, k) {
