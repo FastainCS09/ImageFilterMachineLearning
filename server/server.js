@@ -20,6 +20,11 @@ app.post('/api/invoke-sagemaker', async (req, res) => {
 
   try {
     const result = await sageMakerService.invokeEndpoint(imageBase64);
+
+
+    // console.log(result);
+
+
     res.json(result);
   } catch (error) {
     console.error('Error invoking SageMaker:', error.message);

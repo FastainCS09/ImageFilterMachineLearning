@@ -42,12 +42,23 @@ class SageMakerService {
 
       return {
         top_predicted_labels: topKProbabilities,
-        accepted: (result.predicted_label !== 'unknown_type'),
+        accepted: (result.predicted_label !== 'unknown_type' && this.isFirstProbabilityGreaterThan40(topKProbabilities)),
       };
     } catch (error) {
       console.error('Error invoking SageMaker endpoint:', error);
       throw new Error('Error invoking SageMaker endpoint');
     }
+  }
+
+  isFirstProbabilityGreaterThan40(topKProbabilities) {
+    if (!topKProbabilities || Object.keys(topKProbabilities).length === 0) {
+      return false;
+    }
+
+    const firstKey = Object.keys(topKProbabilities)[0];
+    const firstValue = parseFloat(topKProbabilities[firstKey]);
+
+    return firstValue > 40;
   }
 
   get_sorted_probabilities(labels, probabilities) {

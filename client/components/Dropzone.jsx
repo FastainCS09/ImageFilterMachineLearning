@@ -141,8 +141,8 @@ const Dropzone = ({ className }) => {
 
         <section className='mt-10'>
           <div className='flex gap-4'>
-            <h2 className='title text-3xl font-semibold'
-                style={{backgroundColor: 'rgba(0,255,208,255)', color: 'black', display: 'inline'}}>Preview</h2>
+            <h2 className='title text-2xl font-semibold'
+    style={{backgroundColor: 'rgba(0,255,208,255)', color: 'black', display: 'inline', padding: '0.5rem 1rem', borderRadius: '0.25rem'}}>Preview</h2>
             <button
                 type='button'
                 onClick={removeAll}
