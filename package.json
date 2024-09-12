@@ -1,0 +1,12 @@
+{
+  "name": "dropzone-demo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "client": "npm start --prefix dev",
+    "server": "npm start --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
