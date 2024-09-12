@@ -105,9 +105,9 @@ const Dropzone = ({ className }) => {
   const renderJsonData = (jsonData) => {
     console.log(`${JSON.stringify(jsonData)} JSON DATA`);
     return (
-        <ul style={{  textAlign: 'left', paddingLeft: '2px', listStyleType: 'decimal',   listStylePosition: 'inside'}}>
+        <ul style={{  textAlign: 'left', paddingLeft: '5px', listStylePosition: 'inside', listStyleType: 'disc'}}>
           {Object.entries(jsonData).map(([key, value]) => (
-              <li key={key} style={{fontSize: '16px'}}>
+              <li key={key} style={{fontSize: '13px'}}>
                 {`${key}: ${value}`}  {/* Directly use the string value */}
               </li>
           ))}
@@ -168,7 +168,7 @@ const Dropzone = ({ className }) => {
                         />
                       </div>
                       <div className="flip-card-back">
-                        <h1 style={headingStyle}><strong>Prediction Score</strong></h1>
+                        <h1 style={headingStyle}><strong>Prediction</strong></h1>
                         {/* Render JSON data dynamically */}
                         {renderJsonData(file.top_predicted_labels)}
                       </div>
@@ -200,7 +200,7 @@ const Dropzone = ({ className }) => {
                         />
                       </div>
                       <div className="flip-card-back">
-                        <h1 style={headingStyle}><strong>Prediction Score</strong></h1>
+                        <h1 style={headingStyle}><strong>Prediction</strong></h1>
                         {/* Render JSON data dynamically */}
                         {renderJsonData(file.top_predicted_labels)}
                       </div>
