@@ -43,7 +43,7 @@ class SageMakerService {
       return {
         top_predicted_labels: topKProbabilities,
         predicted_label: result.predicted_label,
-        accepted: (result.predicted_label === 'unknown_type') ? false : true,
+        accepted: (result.predicted_label !== 'unknown_type'),
       };
     } catch (error) {
       console.error('Error invoking SageMaker endpoint:', error);
