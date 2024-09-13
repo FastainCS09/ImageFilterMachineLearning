@@ -175,7 +175,7 @@ const Dropzone = ({ className }) => {
                         />
                       </div>
                       <div className="flip-card-back">
-                        <h1 style={headingStyle}><strong>Prediction</strong></h1>
+                        <h1 style={headingStyle}><strong>Confidence</strong></h1>
                         {/* Render JSON data dynamically */}
                         {renderJsonData(file.top_predicted_labels)}
                       </div>
@@ -207,7 +207,7 @@ const Dropzone = ({ className }) => {
                         />
                       </div>
                       <div className="flip-card-back">
-                        <h1 style={headingStyle}><strong>Prediction</strong></h1>
+                        <h1 style={headingStyle}><strong>Confidence</strong></h1>
                         {/* Render JSON data dynamically */}
                         {renderJsonData(file.top_predicted_labels)}
                       </div>
