@@ -42,7 +42,7 @@ class SageMakerService {
 
       return {
         top_predicted_labels: topKProbabilities,
-        accepted: (result.predicted_label !== 'unknown_type' && this.isFirstProbabilityGreaterThan40(topKProbabilities)),
+        accepted: (result.predicted_label !== 'unknown_type' && this.isHighestProbabilityGreaterThan40(topKProbabilities)),
       };
     } catch (error) {
       console.error('Error invoking SageMaker endpoint:', error);
@@ -50,7 +50,7 @@ class SageMakerService {
     }
   }
 
-  isFirstProbabilityGreaterThan40(topKProbabilities) {
+  isHighestProbabilityGreaterThan40(topKProbabilities) {
     if (!topKProbabilities || Object.keys(topKProbabilities).length === 0) {
       return false;
     }

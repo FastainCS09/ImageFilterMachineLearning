@@ -44,9 +44,11 @@ const sendImageToBackend = async (base64Image) => {
 const Dropzone = ({ className }) => {
   const [files, setFiles] = useState([])
   const [rejected, setRejected] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     if (acceptedFiles?.length) {
+      setLoading(true);
       acceptedFiles.map(file => convertToBase64(file)
           .then(async (base64String) => {
 
@@ -72,9 +74,14 @@ const Dropzone = ({ className }) => {
               }
             } catch (error) {
               console.error('Error sending image to backend:', error);
+            } finally {
+              setLoading(false);
             }
           })
-          .catch(error => console.error('Error converting image to Base64:', error)));
+          .catch(error => {
+            console.error('Error converting image to Base64:', error);
+            setLoading(false);
+          }));
     }
 
   }, [])
@@ -105,19 +112,19 @@ const Dropzone = ({ className }) => {
   const renderJsonData = (jsonData) => {
     console.log(`${JSON.stringify(jsonData)} JSON DATA`);
     return (
-      <ul style={{ textAlign: 'left', paddingLeft: '5px', listStylePosition: 'inside', listStyleType: 'disc' }}>
-        {Object.entries(jsonData).map(([key, value], index) => (
-          <li
-            key={key}
-            style={{
-              fontSize: '13px',
-              fontWeight: index === 0 ? 'bold' : 'normal',
-            }}
-          >
-            {`${key}: ${value}%`}  {/* Directly use the string value */}
-          </li>
-        ))}
-      </ul>
+        <ul style={{ textAlign: 'left', paddingLeft: '5px', listStylePosition: 'inside', listStyleType: 'disc' }}>
+          {Object.entries(jsonData).map(([key, value], index) => (
+              <li
+                  key={key}
+                  style={{
+                    fontSize: '13px',
+                    fontWeight: index === 0 ? 'bold' : 'normal',
+                  }}
+              >
+                {`${key}: ${value}%`}  {/* Directly use the string value */}
+              </li>
+          ))}
+        </ul>
     );
   };
 
@@ -139,10 +146,12 @@ const Dropzone = ({ className }) => {
           </div>
         </div>
 
+        {loading && <div className="loader">Loading...</div>}
+
         <section className='mt-10'>
           <div className='flex gap-4'>
             <h2 className='title text-2xl font-semibold'
-    style={{backgroundColor: 'rgba(0,255,208,255)', color: 'black', display: 'inline', padding: '0.5rem 1rem', borderRadius: '0.25rem'}}>Preview</h2>
+                style={{backgroundColor: 'rgba(0,255,208,255)', color: 'black', display: 'inline', padding: '0.5rem 1rem', borderRadius: '0.25rem'}}>Preview</h2>
             <button
                 type='button'
                 onClick={removeAll}
